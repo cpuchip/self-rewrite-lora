@@ -43,8 +43,9 @@ last prompt token, the generated thinking, or the whole answer), and which proje
 From the vLLM documentation (read 2026-11-22, not yet on our fork): a request selects an adapter by putting the
 adapter's name in the `model` field; with `VLLM_ALLOW_RUNTIME_LORA_UPDATING=True` the server exposes
 `/v1/load_lora_adapter` and `/v1/unload_lora_adapter`, which the documentation says belong only in a trusted,
-isolated environment. Our server also runs a speculative-decoding drafter. **Unchecked:** how an adapter on the main
-model affects the drafter's acceptance rate and the speed.
+isolated environment. Our server also runs a speculative-decoding drafter. ~~**Unchecked:** how an adapter on the main
+model affects the drafter's acceptance rate and the speed.~~ Measured 2026-11-22: acceptance held and decode slowed
+about 2.3%; see the [log](log.md).
 
 ## What would count as working
 

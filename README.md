@@ -3,7 +3,8 @@
 An attempt, done in the open, to reproduce "a language model edits its own weights to fix a failure" on an open
 27B model and one consumer GPU, with the edit written as a LoRA adapter so the base model's weights never change.
 
-**Status: in progress.** Nothing here is reproduced yet. This repo is our lab notebook: the plan, the method, the
+**Status: in progress.** Step 1 (serving an edit per request) is measured; the edit itself is not done yet, so
+nothing of the paper is reproduced yet. This repo is our lab notebook: the plan, the method, the
 tests we commit to before running them, and the results as they come in, good or bad. The log is
 [docs/log.md](docs/log.md).
 
