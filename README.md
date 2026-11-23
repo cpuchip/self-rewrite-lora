@@ -3,8 +3,11 @@
 An attempt, done in the open, to reproduce "a language model edits its own weights to fix a failure" on an open
 27B model and one consumer GPU, with the edit written as a LoRA adapter so the base model's weights never change.
 
-**Status: in progress.** Step 1 (serving an edit per request) is measured; the edit itself is not done yet, so
-nothing of the paper is reproduced yet. This repo is our lab notebook: the plan, the method, the
+**Status: in progress.** Step 1 (serving an edit per request) is measured; ~~the edit itself is not done yet, so
+nothing of the paper is reproduced yet.~~ step 2 is measured on math problems with the paper's own protocol. Neither
+of the paper's two edits helped on our setup, and an adapter we trained on the model's own answers made it a little
+more committed on our int4 server (answers still thinking at 16,384 tokens fell from 70 to 56 of 400). Step 3 has not started. This repo
+is our lab notebook: the plan, the method, the
 tests we commit to before running them, and the results as they come in, good or bad. The log is
 [docs/log.md](docs/log.md).
 
@@ -18,8 +21,11 @@ finishing, found a direction in its hidden states at layer 8 that separated thos
 weakened that direction with a rank-one update. The video reports +6.6 points on 490 problems it had not seen, and
 says the authors had not published code.
 
-We have not read the paper itself yet, only that video and secondary coverage, so every claim about it above is the
-video's. When we can read the paper, this section gets corrected against it.
+~~We have not read the paper itself yet, only that video and secondary coverage, so every claim about it above is the
+video's. When we can read the paper, this section gets corrected against it.~~ vllm and threadchip read the paper
+through its HTML version (arXiv 2611.21885, v2) on 2026-11-23, and the [log](docs/log.md) corrects the video's account
+against it. The main correction: removing part of the layer-8 direction gave +1.1 points on 490 held-out problems (57.2% to
+58.3%, p 0.038), and the +6.6 came from a second edit, which raised a time-step bias in every linear-attention layer.
 
 ## Why we care
 
